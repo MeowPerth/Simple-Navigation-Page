@@ -1,3 +1,11 @@
+@font-face{
+	font-family:'Roboto';
+	font-style:normal;
+	font-weight:400;
+	src:local("Roboto Regular"),
+	local("Roboto-Regular"),
+	url(../fonts/roboto.woff) format("woff")
+}
 body, button, div, form, input, li, table, td, tr, ul {
   margin: 0;
   padding: 0;
@@ -51,6 +59,7 @@ ul li {
   -ms-user-select: none;
   -khtml-user-select: none;
   user-select: none;
+  text-shadow:0px 1px 2px rgb(0 0 0 / 50%);
 }
 
 
@@ -90,6 +99,7 @@ ul li {
 	-ms-user-select: none;
 	-khtml-user-select: none;
 	user-select: none;
+	word-wrap:break-word;
 }
 
 .bginfo-up{
