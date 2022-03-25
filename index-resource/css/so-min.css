@@ -20,7 +20,8 @@ html {
 }
 body {
   font-family: Microsoft YaHei;
-  background: url(../images/background.jpg) no-repeat center center;
+  background-position: center;
+  background-repeat: no-repeat;
   background-size:cover;
   background-attachment:fixed;
   min-height: 100%;
@@ -89,7 +90,7 @@ ul li {
 .bginfo{
 	float:left;
 	width:320Px;
-	margin:44px 24px 24px 24px;
+	margin:25px 24px 24px 24px;
 	text-overflow:ellipsis;
 	color:white;
 	font-family:Roboto;
@@ -258,7 +259,7 @@ ul li {
 }
 
 footer {
-	height:58px;
+	height:60px;
 }
 
 .copyright {

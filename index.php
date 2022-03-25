@@ -24,16 +24,29 @@ header("Last-Modified: " . gmdate( "D, d M Y H:i:s" ) . "GMT" );
 header("Cache-Control: no-cache, must-revalidate" );
 header("Pragma: no-cache");
 $str = file_get_contents('http://cn.bing.com/HPImageArchive.aspx?idx=0&n=1'); //从bing获取数据
-preg_match("/<url>.*?<\/url>/", $str, $matches);
-preg_match("/<copyright>.*?\(©/", $str, $matches2);
-$imgurl = 'http://cn.bing.com'.preg_replace("/<url>|<\/url>/is","", substr($matches[0],0,-6));
-$imginfo = preg_replace("/<copyright>|<\/copyright>/is","", preg_replace("/，|,/is"," - ", substr($matches2[0],0,-3)));
+$a = preg_match("/<url>.*?<\/url>/", $str, $url);
+preg_match("/<copyright>.*?\©/", $str, $copyright);
+preg_match("/<headline>.*?<\/headline>/", $str, $headline);
+$imgUrl = 'https://cn.bing.com'.mb_substr($url[0],5,-6);
+$imgCopyright = preg_replace("/，|,/is"," - ", mb_substr($copyright[0],11,-2));
+$imgHeadline = mb_substr($headline[0],10,-11);
 ?>
 
 <script>
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) return unescape(r[2]);
+			return null;
+	}
 	$(document).ready(function(){
-		$(".bginfo-down").html('<?php echo $imginfo ?>');
-		$("body").css("background-image","url(<?php echo $imgurl ?>)");
+	    if(<?php echo $a ?> == 1){
+	        $("body").css("background-image","url(<?php echo $imgUrl ?>)");
+	    }else{
+	        $("body").css("background-image","url(../index-resource/images/background.jpg)");
+	    }
+	    $(".bginfo-up").html('<?php echo $imgHeadline ?>');
+		$(".bginfo-down").html('<?php echo $imgCopyright ?>');
 	})
                
     //搜索框
@@ -64,7 +77,7 @@ $imginfo = preg_replace("/<copyright>|<\/copyright>/is","", preg_replace("/，|,
 		</div>
 	</div>
 	<div class="tq">
-		<iframe width="350" scrolling="no" height="26" frameborder="0" allowtransparency="true" src="https://i.tianqi.com?c=code&id=40&color=%23FFFFFF&bgc=%23&icon=3&site=12"></iframe>
+		<iframe width="400" scrolling="no" height="26" frameborder="0" allowtransparency="true" src="https://i.tianqi.com?c=code&id=40&color=%23FFFFFF&bgc=%23&icon=3&site=12"></iframe>
 	</div>
   </div>
   <div class="logos">小H酱の后花园</div>
@@ -81,18 +94,18 @@ $imginfo = preg_replace("/<copyright>|<\/copyright>/is","", preg_replace("/，|,
       </form>
       <P>
         <center>
-          <span class="btn btn-success"><a id="login"  href="" target="_blank" title="登入"><img src="index-resource/images/dsm.png">Login</a></span>
-          <span class="btn btn-success"><a id="file"  href="" target="_blank" title="文件站"><img src="index-resource/images/file.png">File</a></span>
-          <span class="btn btn-success"><a id="drive"  href="" target="_blank" title="云盘"><img src="index-resource/images/drive.png">Drive</a></span>
-          <span class="btn btn-success"><a id="photo"  href="" target="_blank" title="图库"><img src="index-resource/images/photo.ico">Photo</a></span>
-          <span class="btn btn-success"><a id="video"  href="" target="_blank" title="视频站"><img src="index-resource/images/video.png">Video</a></span>
-          <span class="btn btn-success"><a id="audio"  href="" target="_blank" title="音乐站"><img src="index-resource/images/audio.png">Audio</a></span>
-          <span class="btn btn-success"><a id="blog" href="" target="_blank" title="博客"><img src="index-resource/images/h-ico.png">Blog</a></span>
-          <span class="btn btn-success"><a id="download"  href="" target="_blank" title="下载站"><img src="index-resource/images/down.png">Download</a></span>
-          <span class="btn btn-success"><a id="contacts"  href="" target="_blank" title="联系人中心"><img src="index-resource/images/contacts.png">Contacts</a></span>
-          <span class="btn btn-success"><a id="vmm"  href="" target="_blank" title="虚拟机管理器"><img src="index-resource/images/vmm.png">VMM</a></span>
-          <span class="btn btn-success"><a id="phpMyAdmin"  href="" target="_blank" title="phpMyAdmin"><img src="index-resource/images/phpMyAdmin.png">phpMyAdmin</a></span>
-          <span class="btn btn-success"><a id="comic"  href="" target="_blank" title="本子站"><img src="index-resource/images/comic.png">Comic</a></span>
+          <span class="btn btn-success"><a id="login"  href="#" target="_blank" title="登入"><img src="index-resource/images/dsm.png">Login</a></span>
+          <span class="btn btn-success"><a id="file"  href="../file/" target="_blank" title="文件站"><img src="index-resource/images/file.png">File</a></span>
+          <span class="btn btn-success"><a id="drive"  href="../drive/" target="_blank" title="云盘"><img src="index-resource/images/drive.png">Drive</a></span>
+          <span class="btn btn-success"><a id="photo"  href="../photo/" target="_blank" title="图库"><img src="index-resource/images/photo.ico">Photo</a></span>
+          <span class="btn btn-success"><a id="video"  href="../video/" target="_blank" title="视频站"><img src="index-resource/images/video.png">Video</a></span>
+          <span class="btn btn-success"><a id="audio"  href="../audio/" target="_blank" title="音乐站"><img src="index-resource/images/audio.png">Audio</a></span>
+          <span class="btn btn-success"><a id="blog" href="#" target="_blank" title="博客"><img src="index-resource/images/h-ico.png">Blog</a></span>
+          <span class="btn btn-success"><a id="download"  href="../download/" target="_blank" title="下载站"><img src="index-resource/images/down.png">Download</a></span>
+          <span class="btn btn-success"><a id="contacts"  href="../contacts/" target="_blank" title="联系人中心"><img src="index-resource/images/contacts.png">Contacts</a></span>
+          <span class="btn btn-success"><a id="vmm"  href="../vmm/" target="_blank" title="虚拟机管理器"><img src="index-resource/images/vmm.png">VMM</a></span>
+          <span class="btn btn-success"><a id="phpMyAdmin"  href="../phpMyAdmin/" target="_blank" title="phpMyAdmin"><img src="index-resource/images/phpMyAdmin.png">phpMyAdmin</a></span>
+          <span class="btn btn-success"><a id="comic"  href="#" target="_blank" title="本子站"><img src="index-resource/images/comic.png">Comic</a></span>
         </center>
       </P>
     </div>
@@ -101,7 +114,7 @@ $imginfo = preg_replace("/<copyright>|<\/copyright>/is","", preg_replace("/，|,
   </div>
   <footer class="footer">
     <div class="copyright">
-      <span> <a href="" title="小H酱の后花园">小H酱の后花园</a> </span>
+      <span> <a href="#" title="小H酱の后花园">小H酱の后花园</a> </span>
     </div>
   </footer>
 </body>
